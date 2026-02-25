@@ -1,0 +1,8 @@
+{
+  "name": "fluree-dataset-generator",
+  "description": "Generate validated JSON-LD datasets for Fluree semantic graph databases",
+  "version": "1.0.0",
+  "author": {
+    "name": "Fluree Dev Rel"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "fluree-plugins",
+  "owner": {
+    "name": "Fluree Dev Rel",
+    "email": "ajohnson@flur.ee"
+  },
+  "metadata": {
+    "description": "Internal Claude Code plugins for Fluree demos and tooling"
+  },
+  "plugins": [
+    {
+      "name": "fluree-dataset-generator",
+      "source": "./plugins/fluree-dataset-generator",
+      "description": "Generate validated JSON-LD datasets for Fluree semantic graph databases. Creates RDF data models and realistic instance data with cross-file reference integrity checks.",
+      "version": "1.0.0"
+    }
+  ]
+}
