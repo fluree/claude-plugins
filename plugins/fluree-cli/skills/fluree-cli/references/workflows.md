@@ -33,10 +33,13 @@ fluree create mydb --from data.ttl --memory-budget-mb 4096 --parallelism 4
 
 ```bash
 fluree branch create dev --at t:42
-fluree branch diff main dev          # read-only preview: ahead/behind, conflicts, FF eligibility
+fluree branch diff dev               # read-only preview vs dev's parent: ahead/behind, conflicts, FF eligibility
+fluree branch diff dev --target main # ...or name the target explicitly
 fluree branch merge dev
 fluree branch revert t:42 --preview  # undo-commit without history rewrite; preview first
 ```
+
+`branch diff` takes ONE positional (the source branch); the comparison target is `--target`, defaulting to the source's parent — not a second positional.
 
 `branch drop` is the sharpest destructive edge in the CLI — see SKILL Rule 2.1.
 

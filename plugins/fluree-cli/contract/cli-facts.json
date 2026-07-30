@@ -1,51 +1,343 @@
 {
   "contract_version": 1,
   "comment": "Every fluree CLI command path and flag this plugin's text hard-codes. CI validates each entry against the fluree-cli-manifest.json release asset (scripts/check-cli-contract.mjs). Keep this SMALL: the skill's probe-first doctrine exists so most reference lives in the binary, not here. Entries marked hidden:true are machine plumbing excluded from the manifest and are skipped by the checker.",
-  "min_cli_version": "4.1.3",
+  "min_cli_version": "4.1.4",
   "manifest_source": "https://github.com/fluree/db/releases/latest/download/fluree-cli-manifest.json",
-  "global_flags": ["direct", "memory-budget-mb", "parallelism"],
+  "global_flags": [
+    "direct",
+    "memory-budget-mb",
+    "parallelism"
+  ],
   "commands": [
-    { "path": ["init"] },
-    { "path": ["use"] },
-    { "path": ["create"], "flags": ["from", "remote"] },
-    { "path": ["list"], "flags": ["remote"] },
-    { "path": ["info"] },
-    { "path": ["show"] },
-    { "path": ["drop"], "flags": ["force"] },
-    { "path": ["graph", "list"], "flags": ["json"] },
-    { "path": ["insert"] },
-    { "path": ["update"] },
-    { "path": ["load"] },
-    { "path": ["query"], "flags": ["format", "envelope", "explain", "sparql", "as", "policy-file", "track-policy", "ledger", "remote"] },
-    { "path": ["multi-query"], "flags": ["format"] },
-    { "path": ["export"], "flags": ["output"] },
-    { "path": ["publish"] },
-    { "path": ["branch", "create"], "flags": ["at"] },
-    { "path": ["branch", "diff"] },
-    { "path": ["branch", "merge"] },
-    { "path": ["branch", "drop"] },
-    { "path": ["branch", "revert"], "flags": ["preview"] },
-    { "path": ["iceberg", "map"], "flags": ["catalog-uri", "table", "auth-bearer"] },
-    { "path": ["iceberg", "list"] },
-    { "path": ["iceberg", "info"] },
-    { "path": ["iceberg", "drop"] },
-    { "path": ["remote", "add"], "flags": ["token"] },
-    { "path": ["remote", "list"] },
-    { "path": ["auth", "login"], "flags": ["remote", "token"] },
-    { "path": ["auth", "status"], "flags": ["remote"] },
-    { "path": ["auth", "token"], "flags": ["remote"] },
-    { "path": ["config", "list"], "flags": ["reveal"] },
-    { "path": ["model", "entity", "define"] },
-    { "path": ["model", "entity", "show"] },
-    { "path": ["model", "access", "enable"] },
-    { "path": ["model", "access", "show"] },
-    { "path": ["mcp", "init"], "flags": ["ide", "toolsets"] },
-    { "path": ["mcp", "serve"], "flags": ["toolsets"] },
-    { "path": ["docs", "search"] },
-    { "path": ["docs", "get"] },
-    { "path": ["docs", "examples"] },
-    { "path": ["docs", "tree"] },
-    { "path": ["server", "run"] },
-    { "path": ["manifest"], "hidden": true }
+    {
+      "path": [
+        "init"
+      ]
+    },
+    {
+      "path": [
+        "use"
+      ]
+    },
+    {
+      "path": [
+        "create"
+      ],
+      "flags": [
+        "from",
+        "remote"
+      ]
+    },
+    {
+      "path": [
+        "list"
+      ],
+      "flags": [
+        "remote"
+      ]
+    },
+    {
+      "path": [
+        "info"
+      ]
+    },
+    {
+      "path": [
+        "show"
+      ]
+    },
+    {
+      "path": [
+        "drop"
+      ],
+      "flags": [
+        "force"
+      ]
+    },
+    {
+      "path": [
+        "graph",
+        "list"
+      ],
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "insert"
+      ]
+    },
+    {
+      "path": [
+        "update"
+      ]
+    },
+    {
+      "path": [
+        "load"
+      ]
+    },
+    {
+      "path": [
+        "query"
+      ],
+      "flags": [
+        "format",
+        "envelope",
+        "explain",
+        "sparql",
+        "as",
+        "policy-file",
+        "track-policy",
+        "ledger",
+        "remote",
+        "at",
+        "policy-class"
+      ]
+    },
+    {
+      "path": [
+        "multi-query"
+      ],
+      "flags": [
+        "format"
+      ]
+    },
+    {
+      "path": [
+        "export"
+      ],
+      "flags": [
+        "output"
+      ]
+    },
+    {
+      "path": [
+        "publish"
+      ]
+    },
+    {
+      "path": [
+        "branch",
+        "create"
+      ],
+      "flags": [
+        "at"
+      ]
+    },
+    {
+      "path": [
+        "branch",
+        "diff"
+      ],
+      "flags": [
+        "target",
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "branch",
+        "merge"
+      ]
+    },
+    {
+      "path": [
+        "branch",
+        "drop"
+      ]
+    },
+    {
+      "path": [
+        "branch",
+        "revert"
+      ],
+      "flags": [
+        "preview",
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "iceberg",
+        "map"
+      ],
+      "flags": [
+        "catalog-uri",
+        "table",
+        "auth-bearer"
+      ]
+    },
+    {
+      "path": [
+        "iceberg",
+        "list"
+      ]
+    },
+    {
+      "path": [
+        "iceberg",
+        "info"
+      ]
+    },
+    {
+      "path": [
+        "iceberg",
+        "drop"
+      ]
+    },
+    {
+      "path": [
+        "remote",
+        "add"
+      ],
+      "flags": [
+        "token"
+      ]
+    },
+    {
+      "path": [
+        "remote",
+        "list"
+      ]
+    },
+    {
+      "path": [
+        "auth",
+        "login"
+      ],
+      "flags": [
+        "remote",
+        "token"
+      ]
+    },
+    {
+      "path": [
+        "auth",
+        "status"
+      ],
+      "flags": [
+        "remote"
+      ]
+    },
+    {
+      "path": [
+        "auth",
+        "token"
+      ],
+      "flags": [
+        "remote"
+      ]
+    },
+    {
+      "path": [
+        "config",
+        "list"
+      ],
+      "flags": [
+        "reveal"
+      ]
+    },
+    {
+      "path": [
+        "model"
+      ]
+    },
+    {
+      "path": [
+        "model",
+        "entity",
+        "define"
+      ]
+    },
+    {
+      "path": [
+        "model",
+        "entity",
+        "show"
+      ]
+    },
+    {
+      "path": [
+        "model",
+        "access",
+        "enable"
+      ]
+    },
+    {
+      "path": [
+        "model",
+        "access",
+        "show"
+      ]
+    },
+    {
+      "path": [
+        "mcp",
+        "init"
+      ],
+      "flags": [
+        "ide",
+        "toolsets"
+      ]
+    },
+    {
+      "path": [
+        "mcp",
+        "serve"
+      ],
+      "flags": [
+        "toolsets"
+      ]
+    },
+    {
+      "path": [
+        "docs",
+        "search"
+      ],
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "docs",
+        "get"
+      ],
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "docs",
+        "examples"
+      ],
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "docs",
+        "tree"
+      ],
+      "flags": [
+        "json"
+      ]
+    },
+    {
+      "path": [
+        "server",
+        "run"
+      ]
+    },
+    {
+      "path": [
+        "manifest"
+      ],
+      "hidden": true
+    }
   ]
 }

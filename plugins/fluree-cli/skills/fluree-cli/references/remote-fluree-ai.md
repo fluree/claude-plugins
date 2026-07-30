@@ -23,9 +23,19 @@ fluree auth login --remote mystack
 
 The CLI rides the **user's** credential and may see more than an app token would (`fluree list --remote mystack` can show datasets a Space deliberately excludes). That difference is governance working, not a bug — never work around a missing dataset; ask the user to grant access in the stack's UI.
 
-## Governance from the CLI (fluree ≥ 4.1.3)
+## Governance from the CLI (fluree ≥ 4.1.3; the full flow here needs 4.1.4 for `auth token`)
 
 `fluree model` is a compiler, not a separate config system: `model entity define` transacts a SHACL shape, `model access enable` transacts policy data — into the ledger, as ordinary queryable data. Read back what is actually enforced with `model entity show` / `model access show`. Anything the CLI grammar can't express is authored directly as SHACL/policy JSON-LD via a normal `fluree insert`/`update` — enforcement is identical. For exact flags: `fluree model --help` or `fluree docs search "model entity define"`.
+
+## Query-side alternative: connect Claude Code to the stack's own MCP server
+
+For read/analysis work a Space can expose its data directly as MCP tools (`sparql_query`, `get_data_model`, …) — no CLI required. The stack's Data Admin **MCP** tab documents Claude Desktop; for **Claude Code** the same endpoint connects with:
+
+```bash
+claude mcp add --transport http fluree-space "https://<stack>/v1/mcp?space=<spaceId>"
+```
+
+Claude Code discovers the OAuth configuration automatically (the stack serves RFC 8414 metadata, including the device grant) and prompts for login. The MCP server URL and spaceId come from the Space's MCP tab; MCP access must be enabled there by the Space owner first. Use this when the user wants to *query* a Space's data; use the CLI when they need to *administer* it (schema, access, imports, branches).
 
 ## Server-routed execution differs from local
 
