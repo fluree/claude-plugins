@@ -1,7 +1,7 @@
 {
   "name": "fluree-cli",
   "description": "Companion for driving the fluree CLI well — probe-first doctrine, safety rails, and Fluree AI (Solo) remote workflows. Defers all command reference to the binary's own embedded docs.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Fluree Dev Rel"
   },

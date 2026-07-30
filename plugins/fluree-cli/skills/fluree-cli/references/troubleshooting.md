@@ -3,7 +3,7 @@
 ## First moves
 
 - `"no .fluree/ directory found"` → run `fluree init`. `"no active ledger set"` → `fluree use <ledger>` or pass `-l`.
-- A command absent from `--help` → feature-gated build (check `fluree manifest` on recent releases), not a typo.
+- A command absent from `--help` → feature-gated build, not a typo. Releases after fluree/db#1571 have a hidden `fluree manifest` command whose `features` array settles it; on 4.1.4 and earlier rely on `--help`.
 - Reread the error text: this CLI's errors usually name the fix (`use --force to confirm deletion`, `run 'fluree init'`, `'X' is a graph source, but this build lacks Iceberg/R2RML support`).
 
 ## Auto-routing: the silent execution-target switch
@@ -27,4 +27,4 @@ Dropping and recreating a ledger while a server holds it produces *partial* fail
 
 ## When stuck
 
-Search the embedded docs — they include a troubleshooting tree written for the exact installed version: `fluree docs search "<symptom>"`, and `fluree docs get ai/claude-code` for the agent-specific rules.
+Search the embedded docs — they include a troubleshooting tree written for the exact installed version: `fluree docs search "<symptom>"`. On releases after fluree/db#1571, `fluree docs get ai/claude-code` carries the agent-specific rules (a 404 there just means an older binary).

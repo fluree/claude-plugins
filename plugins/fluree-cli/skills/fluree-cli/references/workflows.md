@@ -7,11 +7,15 @@ Recipes for the flows users ask for most. Flags shown are the stable spine — v
 ```bash
 fluree init                      # creates .fluree/ (required before anything)
 fluree create mydb               # new ledger; becomes active
-fluree insert 'ex:alice a ex:Person ; ex:name "Alice" .'
-fluree query 'SELECT ?name WHERE { ?s <http://example.org/name> ?name }'
-fluree query --format json --sparql '...'     # machine-readable
-fluree query --explain --sparql '...'         # plan without executing
+fluree insert -e '@prefix ex: <http://example.org/> . ex:alice a ex:Person ; ex:name "Alice" .'
+fluree query --format json --sparql 'SELECT ?name WHERE { ?s <http://example.org/name> ?name }'
+fluree query --explain --format json --sparql '...'   # plan without executing (--explain is JSON-only)
 ```
+
+Two rules that keep agent sessions from hanging or failing here:
+
+- **Always pass inline data via `-e` (or `-f <file>`), never as a bare positional.** `insert` sniffs a lone positional to decide ledger-name-vs-data, prefixed-name Turtle fails the sniff, and the misread argument becomes a ledger name with the CLI then waiting on **stdin** — which in an agent session is a silent hang.
+- **Declare your prefixes.** Turtle with `ex:` and no `@prefix` is a parse error, not a nicety.
 
 `fluree use <ledger>` switches the active ledger; most commands also take `-l/--ledger`.
 
@@ -61,8 +65,8 @@ The stack itself serves the authoritative recipe, per-stack and unauthenticated 
 
 ```bash
 fluree publish mystack mydb     # create-on-remote + push + set upstream
-# or archive-based:
-fluree export mydb -o mydb.flpack && fluree create mydb --remote mystack --from mydb.flpack
+# or archive-based (index first — export packs the binary index):
+fluree index && fluree export mydb -o mydb.flpack && fluree create mydb --remote mystack --from mydb.flpack
 ```
 
-`export` refuses to write a binary `.flpack` to a TTY — always `-o <file>`.
+`export` refuses to write a binary `.flpack` to a TTY — always `-o <file>` — and fails on a never-indexed ledger (`no binary index available for export`); `fluree index` first.

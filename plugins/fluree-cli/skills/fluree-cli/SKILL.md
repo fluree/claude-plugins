@@ -15,7 +15,7 @@ Your trained knowledge of this CLI is stale by construction. The installed binar
 
 - **MCP tools** (if the `fluree-docs` server is connected): `docs_search`, `docs_get`, `docs_examples`, `docs_tree`.
 - **Always available as commands**: `fluree docs search "<topic>"`, `fluree docs get <path>`, `fluree <cmd> --help`.
-- **Start here for agent workflows** (releases after fluree/db#1571): `fluree docs get ai/claude-code` — the binary's own operating guide for AI agents, authoritative for the installed version's *command surface*. If that path 404s, your binary predates the page; use `fluree docs search "agent"` and rely on the rules below.
+- **Start here for agent workflows** (releases after fluree/db#1571): `fluree docs get ai/claude-code` — the binary's own operating guide for AI agents, authoritative for the installed version's *command surface*. If that path 404s, your binary predates the page; use `fluree docs search "AI agents"` (the bare word "agent" ranks HTTP User-Agent docs first) and rely on the rules below.
 
 Before composing any nontrivial invocation, check the docs or `--help`. Never assert a flag from memory. If a command seems missing from `--help` (`validate`, `cluster`), it is usually a build without that cargo feature, not a user error — the hidden `fluree manifest` command prints a JSON surface description including a `features` array that settles it (recent releases only — if the binary doesn't have it, rely on `--help`).
 
@@ -31,7 +31,7 @@ This project's workflows need **fluree ≥ 4.1.4** (`fluree --version`): `fluree
 
 ## Rule 3 — machine-readable output where it exists
 
-Prefer structured output when parsing: `query` and `multi-query` take `--format json` (`query` additionally takes `--envelope` for a self-describing wrapper); `graph list`, `branch diff`, `branch revert --preview`, and the four `docs` subcommands take `--json`. `list`, `info`, and `show` are human-formatted only — don't scrape them; query instead. Errors are human text; the exit code (0/1/2-usage) is the only machine signal.
+Prefer structured output when parsing: `query` and `multi-query` take `--format json` (`query --format ndjson --envelope` adds a self-describing head/rows/end wrapper — `--envelope` pairs with ndjson only); `graph list`, `branch diff`, `branch revert --preview`, and the four `docs` subcommands take `--json`. `list`, `info`, and `show` are human-formatted only — don't scrape them; query instead. Errors are human text; the exit code (0/1/2-usage) is the only machine signal.
 
 ## Rule 4 — remote work (Fluree AI / Solo stacks)
 
