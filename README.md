@@ -17,6 +17,7 @@ Code CLI** in a terminal.
 | Plugin                       | What it does                                                                                                                                                                                   | Docs                                                 |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | **fluree-dataset-generator** | Interviews you about a domain and generates a complete, **validated** JSON-LD dataset (RDF model + realistic instance data) ready to upload into a Fluree knowledge graph such as Fluree Solo. | [README](plugins/fluree-dataset-generator/README.md) |
+| **fluree-cli**               | Teaches Claude Code to drive the **`fluree` CLI** safely and well — probe-first use of the binary's embedded docs, destructive-op and credential safety rails, and Fluree AI (Solo) remote workflows. Includes `/fluree-cli:setup`. | [README](plugins/fluree-cli/README.md)               |
 
 _Marketplace name: `fluree-plugins` (this is what you reference when installing — see below)._
 

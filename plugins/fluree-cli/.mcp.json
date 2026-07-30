@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "fluree-docs": {
+      "command": "fluree",
+      "args": ["mcp", "serve", "--toolsets", "docs"],
+      "description": "Fluree's embedded documentation (docs_search/docs_get/docs_examples/docs_tree) — version-exact for the installed fluree binary. Degrades gracefully if fluree is not installed; /fluree-cli:setup covers installation."
+    }
+  }
+}
