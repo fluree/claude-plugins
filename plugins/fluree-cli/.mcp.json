@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fluree-docs": {
+      "command": "fluree",
+      "args": ["mcp", "serve", "--toolsets", "docs"]
+    }
+  }
+}

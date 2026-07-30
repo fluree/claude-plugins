@@ -17,6 +17,7 @@ Code CLI** in a terminal.
 | Plugin                       | What it does                                                                                                                                                                                   | Docs                                                 |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | **fluree-dataset-generator** | Interviews you about a domain and generates a complete, **validated** JSON-LD dataset (RDF model + realistic instance data) ready to upload into a Fluree knowledge graph such as Fluree Solo. | [README](plugins/fluree-dataset-generator/README.md) |
+| **fluree-cli**               | Teaches Claude Code to drive the **`fluree` CLI** safely and well — probe-first use of the binary's embedded docs, destructive-op and credential safety rails, and Fluree AI (Solo) remote workflows. Includes `/fluree-cli:setup`. | [README](plugins/fluree-cli/README.md)               |
 
 _Marketplace name: `fluree-plugins` (this is what you reference when installing — see below)._
 
@@ -59,6 +60,7 @@ You only add the marketplace once; afterward you can install/update plugins free
 ```text
 /plugin marketplace add fluree/claude-plugins
 /plugin install fluree-dataset-generator@fluree-plugins
+/plugin install fluree-cli@fluree-plugins
 ```
 
 Notes:
@@ -128,14 +130,19 @@ commands. Project-scoped marketplaces prompt users to trust them before loading.
 Once installed, each plugin contributes a **Skill** that you can invoke three ways:
 
 - **Ask in plain English** — skills auto-trigger on intent, e.g. _"generate a demo insurance
-  dataset for Fluree."_ You don't have to name the plugin.
-- **Desktop menu** — `+` → **Plugins → Fluree dataset generator → Skills:
-  fluree-dataset-generator** (inserts `/fluree-dataset-generator`, then press **Enter**).
-- **CLI slash command** — `/fluree-dataset-generator:fluree-dataset-generator`.
+  dataset for Fluree"_ or _"connect the fluree CLI to my stack."_ You don't have to name the
+  plugin.
+- **Desktop menu** — `+` → **Plugins → \<plugin\> → Skills** (inserts the skill's slash
+  command, then press **Enter**).
+- **CLI slash command** — `/fluree-dataset-generator:fluree-dataset-generator`, or for the
+  CLI companion `/fluree-cli:setup` (its skill auto-triggers; `setup` is the explicit entry
+  point).
 
 Each plugin's own README has the full usage guide. For the dataset generator — including the
 interview questions, scale guidance, and how to **upload the output into Fluree Solo** — see
 **[plugins/fluree-dataset-generator/README.md](plugins/fluree-dataset-generator/README.md)**.
+For the CLI companion — what the skill enforces, the MCP docs server, and how it stays in
+sync with the CLI — see **[plugins/fluree-cli/README.md](plugins/fluree-cli/README.md)**.
 
 ---
 
@@ -159,18 +166,30 @@ covers update/disable/uninstall.
 claude-plugins/
 ├── .claude-plugin/
 │   └── marketplace.json                 # marketplace manifest (name: "fluree-plugins")
+├── .github/workflows/ci.yml             # validate --strict, version sync, CLI contract check
+├── scripts/
+│   ├── check-version-sync.mjs           # marketplace ↔ plugin.json version invariant
+│   └── check-cli-contract.mjs           # cli-facts vs the fluree CLI's release manifest
 └── plugins/
-    └── fluree-dataset-generator/
+    ├── fluree-dataset-generator/
+    │   ├── .claude-plugin/
+    │   │   └── plugin.json              # plugin manifest (name, version, author)
+    │   ├── README.md                    # plugin usage guide
+    │   └── skills/
+    │       └── fluree-dataset-generator/
+    │           ├── SKILL.md             # the skill's instructions to Claude
+    │           └── scripts/             # Python validators run during generation
+    └── fluree-cli/
         ├── .claude-plugin/
-        │   └── plugin.json              # plugin manifest (name, version, author)
-        ├── README.md                    # plugin usage guide
+        │   └── plugin.json
+        ├── README.md
+        ├── .mcp.json                    # auto-connects `fluree mcp serve --toolsets docs`
+        ├── commands/setup.md            # /fluree-cli:setup
+        ├── contract/cli-facts.json      # every CLI fact the plugin hard-codes (CI-checked)
         └── skills/
-            └── fluree-dataset-generator/
-                ├── SKILL.md             # the skill's instructions to Claude
-                └── scripts/             # Python validators run during generation
-                    ├── validate_model.py
-                    ├── validate_instances.py
-                    └── validate_graph.py
+            └── fluree-cli/
+                ├── SKILL.md             # probe-first operating doctrine
+                └── references/          # workflows, remote/Fluree AI, policy, troubleshooting
 ```
 
 ---

@@ -13,6 +13,12 @@
       "source": "./plugins/fluree-dataset-generator",
       "description": "Generate validated JSON-LD datasets for Fluree semantic graph databases. Creates RDF data models and realistic instance data with cross-file reference integrity checks.",
       "version": "1.0.0"
+    },
+    {
+      "name": "fluree-cli",
+      "source": "./plugins/fluree-cli",
+      "description": "Companion for driving the fluree CLI well — probe-first doctrine, safety rails, and Fluree AI (Solo) remote workflows. Defers all command reference to the binary's own embedded docs.",
+      "version": "1.0.0"
     }
   ]
 }
