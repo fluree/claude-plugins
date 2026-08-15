@@ -54,23 +54,14 @@ jobs:
       # `fluree manifest` command) and published as a release asset by
       # fluree/db — validating against it means validating against what
       # actually shipped, without building anything. The URL lives in the
-      # facts file (single source of truth).
+      # facts file (single source of truth). fluree/db v4.1.5 ships the
+      # asset, so a missing manifest is an infrastructure failure now, not
+      # a skip (issue #2).
       - name: Download latest fluree CLI manifest
-        id: manifest
         run: |
           set -euo pipefail
           url=$(node -p "JSON.parse(require('node:fs').readFileSync('plugins/fluree-cli/contract/cli-facts.json','utf-8')).manifest_source")
-          code=$(curl -sSL -w '%{http_code}' -o /tmp/fluree-cli-manifest.json "$url" || echo 000)
-          if [ "$code" = "200" ]; then
-            echo "found=true" >> "$GITHUB_OUTPUT"
-          elif [ "$code" = "404" ]; then
-            echo "found=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::fluree-cli-manifest.json is not on the latest fluree/db release yet — contract check SKIPPED (tracked to be made required in issue #2). Remove this branch once fluree/db#1571 ships in a release."
-          else
-            echo "::error::manifest download failed with HTTP $code — an infrastructure failure, not a missing-asset skip."
-            exit 1
-          fi
+          curl -fsSL -o /tmp/fluree-cli-manifest.json "$url"
 
       - name: Check cli-facts contract
-        if: steps.manifest.outputs.found == 'true'
         run: node scripts/check-cli-contract.mjs plugins/fluree-cli/contract/cli-facts.json /tmp/fluree-cli-manifest.json
