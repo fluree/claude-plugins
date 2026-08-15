@@ -5,7 +5,7 @@
     "email": "ajohnson@flur.ee"
   },
   "metadata": {
-    "description": "Internal Claude Code plugins for Fluree demos and tooling"
+    "description": "Claude Code plugins for working with Fluree AI — connecting to your stack, driving the fluree CLI, and generating demo datasets"
   },
   "plugins": [
     {
