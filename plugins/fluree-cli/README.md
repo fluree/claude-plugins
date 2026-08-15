@@ -13,6 +13,10 @@ Teaches Claude Code to drive the [`fluree`](https://github.com/fluree/db) CLI sa
 
 Requires **fluree ≥ 4.1.4** (the floor set by `fluree auth token`; the `fluree model` governance family needs 4.1.3+).
 
+## Working against a deployed stack?
+
+Install **[fluree-companion](../fluree-companion/README.md)** alongside this one. It owns the stack-first half: discovery via `/.well-known/fluree.json`, the guided `/fluree-companion:connect`, registering a Space's MCP server, and reading a stack's own version-pinned docs rather than recalling platform knowledge. This plugin stays the authority on the binary; that one routes the data and admin work back here.
+
 ## Install
 
 ```text

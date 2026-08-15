@@ -37,6 +37,8 @@ Prefer structured output when parsing: `query` and `multi-query` take `--format 
 
 `--remote <name>` takes a configured **alias**, never a URL. The full connection choreography — `remote add`, the device-code login where the *human* approves in a browser, token scripting, and what differs between local and server-routed execution — is in `references/remote-fluree-ai.md`. The one thing to never forget: **`fluree auth login` blocks on the user approving a device code at the stack's `/activate` page** — run it, tell the user to approve, and verify with `fluree auth status` before continuing.
 
+When the work is really *about the stack* rather than about the CLI — connecting a fresh machine to one, asking what a particular stack can do, or answering a how-do-I question whose answer lives in the stack's own docs — that is the **`fluree-companion`** plugin's job (same marketplace; `/fluree-companion:connect` is its guided setup). It probes `/.well-known/fluree.json` for capabilities and the minimum CLI version, reads the stack's version-pinned docs instead of recalling platform knowledge, and hands data and admin operations back to this skill.
+
 ## Common flows
 
 Step-by-step recipes (create→insert→query, bulk import, branch/merge, Iceberg mapping, app-building against a Fluree AI stack): `references/workflows.md`. Debugging divergences (server-routed vs `--direct`, time-travel formatting rules, auto-routing): `references/troubleshooting.md`.
