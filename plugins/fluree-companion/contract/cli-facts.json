@@ -1,0 +1,21 @@
+{
+  "contract_version": 1,
+  "comment": "The fluree CLI commands this plugin's connection choreography and playbooks name. Validated by scripts/check-cli-contract.mjs against the same fluree-cli-manifest.json release asset as the fluree-cli plugin's facts file — a plugin that names a command is on the hook for it existing, whichever plugin it is. Deliberately smaller than fluree-cli's: flags belong to that plugin's doctrine, and the choreography here names commands, not flag surfaces. Note the floor: `remote add`'s automatic cli.min_version warning needs 4.1.5, which is why /fluree-companion:connect compares the versions itself rather than relying on the warning.",
+  "min_cli_version": "4.1.4",
+  "manifest_source": "https://github.com/fluree/db/releases/latest/download/fluree-cli-manifest.json",
+  "commands": [
+    { "path": ["init"] },
+    { "path": ["list"], "flags": ["remote"] },
+    { "path": ["create"], "flags": ["from"] },
+    { "path": ["publish"] },
+    { "path": ["remote", "add"], "flags": ["token"] },
+    { "path": ["auth", "login"], "flags": ["remote", "token"] },
+    { "path": ["auth", "status"], "flags": ["remote"] },
+    { "path": ["auth", "token"], "flags": ["remote"] },
+    { "path": ["iceberg", "map"] },
+    { "path": ["iceberg", "list"] },
+    { "path": ["iceberg", "info"] },
+    { "path": ["model", "entity", "show"] },
+    { "path": ["model", "access", "show"] }
+  ]
+}

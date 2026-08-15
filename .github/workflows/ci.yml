@@ -63,5 +63,39 @@ jobs:
           url=$(node -p "JSON.parse(require('node:fs').readFileSync('plugins/fluree-cli/contract/cli-facts.json','utf-8')).manifest_source")
           curl -fsSL -o /tmp/fluree-cli-manifest.json "$url"
 
-      - name: Check cli-facts contract
-        run: node scripts/check-cli-contract.mjs plugins/fluree-cli/contract/cli-facts.json /tmp/fluree-cli-manifest.json
+      # Every plugin that names a `fluree …` command is on the hook for it
+      # existing, not just the CLI plugin — so check each cli-facts.json.
+      - name: Check cli-facts contracts
+        run: |
+          set -e
+          for f in plugins/*/contract/cli-facts.json; do
+            echo "── $f"
+            node scripts/check-cli-contract.mjs "$f" /tmp/fluree-cli-manifest.json
+          done
+
+  stack-contract:
+    name: fluree-companion contract vs solo endpoint manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The endpoint manifest is generated from the Solo router's own route
+      # table and committed to fluree/solo. It does not exist on solo's main
+      # yet (fluree/solo#1041), so a 404 warns and skips — the same lifecycle
+      # the cli-contract job went through, and it flips to a hard failure
+      # here the moment that PR merges.
+      - name: Download solo router endpoint manifest
+        id: manifest
+        run: |
+          set -uo pipefail
+          url=$(node -p "JSON.parse(require('node:fs').readFileSync('plugins/fluree-companion/contract/stack-facts.json','utf-8')).manifest_source")
+          if curl -fsSL -o /tmp/endpoint-manifest.json "$url"; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::endpoint manifest not published yet ($url) — skipping the stack-facts check. Remove this skip when fluree/solo#1041 merges."
+          fi
+
+      - name: Check stack-facts contract
+        if: steps.manifest.outputs.available == 'true'
+        run: node scripts/check-stack-facts.mjs plugins/fluree-companion/contract/stack-facts.json /tmp/endpoint-manifest.json

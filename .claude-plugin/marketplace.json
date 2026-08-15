@@ -9,6 +9,12 @@
   },
   "plugins": [
     {
+      "name": "fluree-companion",
+      "source": "./plugins/fluree-companion",
+      "description": "Connect Claude Code to your Fluree AI (Solo) stack and work against it — discovery, human-approved device login, Space MCP registration, and playbooks that read the stack's own version-pinned docs. Includes /fluree-companion:connect.",
+      "version": "1.0.0"
+    },
+    {
       "name": "fluree-dataset-generator",
       "source": "./plugins/fluree-dataset-generator",
       "description": "Generate validated JSON-LD datasets for Fluree semantic graph databases. Creates RDF data models and realistic instance data with cross-file reference integrity checks.",
