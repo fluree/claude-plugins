@@ -36,11 +36,11 @@ So the chain is: **fetch the index → pick slugs by title and description → f
 curl -fsS https://<stack>/api/docs/how-to/upload-and-import-data
 ```
 
-There is no search endpoint in this path — the index *is* the search surface, and it is small enough to read in full. Pick from it rather than guessing a slug: fetching an unknown slug returns 404, and a slug that exists on one stack may not exist on another.
+Newer stacks also serve ranked search at `GET /api/docs/search?q=…` — and their `/api/docs` index says so in its header. Probe it first; on 404 (an older stack), the index *is* the search surface, and it is small enough to read in full. Either way, pick real slugs rather than guessing: fetching an unknown slug returns 404, and a slug that exists on one stack may not exist on another.
 
 ## What the public index leaves out
 
-The `/api/docs` set is narrower than the docs a signed-in user sees in the UI. Pages outside it 404 on `/api/docs/...` while rendering fine at `https://<stack>/docs/{category}/{slug}` for a signed-in user. `how-to/connect-external-mcp-client` is one of them today.
+On some stack releases the `/api/docs` set is narrower than the docs a signed-in user sees in the UI (newer releases serve the whole corpus publicly). A withheld page 404s on `/api/docs/...` while rendering fine at `https://<stack>/docs/{category}/{slug}` for a signed-in user — the MCP/agent how-tos were the commonly withheld ones.
 
 So: if a page you expect isn't in the index, that is not evidence the stack lacks the feature. Point the user at the signed-in `/docs/...` URL instead, and say why.
 

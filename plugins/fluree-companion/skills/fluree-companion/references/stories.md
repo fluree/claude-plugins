@@ -21,7 +21,7 @@ Slugs below are `category/slug` on the stack's own docs: `https://<stack>/api/do
 ## Expose a Space over MCP
 
 **Goal:** a Space's governed data and tools become an MCP server that Claude Code (or Claude Desktop, or claude.ai) can use.
-**Knowledge:** `how-to/connect-external-mcp-client` — **not in the public `/api/docs` set today**, so send the user to the signed-in `https://<stack>/docs/how-to/connect-external-mcp-client`. `concepts/spaces-tasks-and-agents` for what a Space is.
+**Knowledge:** `how-to/connect-external-mcp-client` — if the public `/api/docs` fetch 404s (older stacks withhold this page), send the user to the signed-in `https://<stack>/docs/how-to/connect-external-mcp-client`. `concepts/spaces-tasks-and-agents` for what a Space is.
 **Entry points:** the Space's **MCP** tab (owner-only: enable access, choose exposed tools, read off the server URL and `spaceId`), then `claude mcp add --transport http fluree-space "https://<stack>/v1/mcp?space=<spaceId>"`.
 
 ## Connect an Iceberg catalog

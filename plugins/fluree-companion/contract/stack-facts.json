@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "comment": "Every Fluree AI (Solo) stack path, doc slug, and tool name this plugin's text hard-codes. CI validates it with scripts/check-stack-facts.mjs. Keep this SMALL: the stack-first doctrine exists so the knowledge lives on the stack, not here — this file exists for the handful of addresses the choreography cannot avoid naming.",
+  "comment": "Every Fluree AI (Solo) stack path, doc slug, and tool name this plugin's text hard-codes. CI validates it with scripts/check-stack-facts.mjs. Keep this SMALL: the stack-first doctrine exists so the knowledge lives on the stack, not here \u2014 this file exists for the handful of addresses the choreography cannot avoid naming.",
   "manifest_source": "https://raw.githubusercontent.com/fluree/solo/main/src/contracts/generated/router/endpoint-manifest.json",
   "docs_index_path": "/api/docs",
   "router_endpoints": [
@@ -14,13 +14,13 @@
       "method": "GET",
       "path": "/.well-known/oauth-protected-resource",
       "public": true,
-      "why": "RFC 9728 — how an MCP client finds the authorization server for /v1/mcp"
+      "why": "RFC 9728 \u2014 how an MCP client finds the authorization server for /v1/mcp"
     },
     {
       "method": "GET",
       "path": "/.well-known/oauth-authorization-server",
       "public": true,
-      "why": "RFC 8414 — the metadata `claude mcp add` reads to run the OAuth flow unattended"
+      "why": "RFC 8414 \u2014 the metadata `claude mcp add` reads to run the OAuth flow unattended"
     },
     {
       "method": "*",
@@ -45,12 +45,17 @@
     {
       "method": "GET",
       "path": "/api/docs",
-      "why": "llms.txt-style public docs index — the HTTP fallback when stack docs MCP tools are absent"
+      "why": "llms.txt-style public docs index \u2014 the HTTP fallback when stack docs MCP tools are absent"
     },
     {
       "method": "GET",
       "path": "/api/docs/{category}/{slug}",
       "why": "raw markdown for one public page"
+    },
+    {
+      "method": "GET",
+      "path": "/api/docs/search",
+      "why": "ranked public docs search on newer stacks; the prose is probe-shaped (404 on older stacks falls back to reading the index)"
     },
     {
       "method": "GET",
@@ -64,32 +69,99 @@
     }
   ],
   "doc_slugs": [
-    { "slug": "reference/cli", "served": "public" },
-    { "slug": "reference/api", "served": "public" },
-    { "slug": "reference/building-apps", "served": "public" },
-    { "slug": "how-to/upload-and-import-data", "served": "public" },
-    { "slug": "how-to/map-files-into-a-knowledge-graph", "served": "public" },
-    { "slug": "concepts/how-data-gets-in", "served": "public" },
-    { "slug": "concepts/spaces-tasks-and-agents", "served": "public" },
-    { "slug": "how-to/connect-an-iceberg-catalog", "served": "public" },
-    { "slug": "how-to/create-a-dataset-from-iceberg", "served": "public" },
-    { "slug": "concepts/iceberg-r2rml-mapping", "served": "public" },
-    { "slug": "how-to/publish-a-ledger-with-the-cli", "served": "public" },
-    { "slug": "how-to/connect-a-remote-fluree", "served": "public" },
-    { "slug": "how-to/access-policies", "served": "public" },
-    { "slug": "concepts/policies-and-data-governance", "served": "public" },
+    {
+      "slug": "reference/cli",
+      "served": "public"
+    },
+    {
+      "slug": "reference/api",
+      "served": "public"
+    },
+    {
+      "slug": "reference/building-apps",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/upload-and-import-data",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/map-files-into-a-knowledge-graph",
+      "served": "public"
+    },
+    {
+      "slug": "concepts/how-data-gets-in",
+      "served": "public"
+    },
+    {
+      "slug": "concepts/spaces-tasks-and-agents",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/connect-an-iceberg-catalog",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/create-a-dataset-from-iceberg",
+      "served": "public"
+    },
+    {
+      "slug": "concepts/iceberg-r2rml-mapping",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/publish-a-ledger-with-the-cli",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/connect-a-remote-fluree",
+      "served": "public"
+    },
+    {
+      "slug": "how-to/access-policies",
+      "served": "public"
+    },
+    {
+      "slug": "concepts/policies-and-data-governance",
+      "served": "public"
+    },
     {
       "slug": "how-to/connect-external-mcp-client",
-      "served": "in-app",
-      "why": "outside the public allowlist as of solo main — the plugin sends users to the signed-in /docs URL for it. Flip to public (and relink) if solo#1040 B4 widens the allowlist."
+      "served": "public",
+      "why": "outside the public allowlist as of solo main \u2014 the plugin sends users to the signed-in /docs URL for it. Flip to public (and relink) if solo#1040 B4 widens the allowlist.",
+      "note": "public since fluree/solo#1041 widened the allowlist to the full corpus; older stacks 404 this slug and the prose routes users to the signed-in URL"
     }
   ],
   "mcp_tools": [
-    { "name": "docs_search", "surface": "stack", "probe_only": true },
-    { "name": "docs_get", "surface": "stack", "probe_only": true },
-    { "name": "docs_tree", "surface": "stack", "probe_only": true },
-    { "name": "docs_examples", "surface": "stack", "probe_only": true },
-    { "name": "sparql_query", "surface": "space", "probe_only": true },
-    { "name": "get_data_model", "surface": "space", "probe_only": true }
+    {
+      "name": "docs_search",
+      "surface": "stack",
+      "probe_only": true
+    },
+    {
+      "name": "docs_get",
+      "surface": "stack",
+      "probe_only": true
+    },
+    {
+      "name": "docs_tree",
+      "surface": "stack",
+      "probe_only": true
+    },
+    {
+      "name": "docs_examples",
+      "surface": "stack",
+      "probe_only": true
+    },
+    {
+      "name": "sparql_query",
+      "surface": "space",
+      "probe_only": true
+    },
+    {
+      "name": "get_data_model",
+      "surface": "space",
+      "probe_only": true
+    }
   ]
 }
