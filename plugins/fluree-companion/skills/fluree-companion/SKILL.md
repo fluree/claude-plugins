@@ -53,6 +53,38 @@ When something the user wants is missing from the CLI (a dataset that doesn't ap
 
 The stack's docs *are* its version. Whatever you learn from one stack — a capability, an endpoint, a doc page, whether a tool exists — is a fact about **that** stack at **that** release. Don't carry it to another stack, don't cache it across a version bump, and when the user has more than one stack configured, name which one you probed. Re-probe rather than remember.
 
+## Rule 6 — paved paths: build what the product can see
+
+The API and CLI will let you assemble almost any outcome from raw
+primitives — create a ledger, insert rows, trigger an execution directly.
+Resist that. Most product stories have a **paved path** whose steps mint
+the connective tissue the raw primitives skip: a file that goes through
+the documents pipeline shows up in the Uploads surface, carries its source
+document into the extraction output, and gets its entities annotated
+against the identity graph; a raw `fluree insert` into a fresh ledger
+produces none of that, and the user opens their workspace to find data
+they cannot trace and files they cannot see.
+
+So, in order:
+
+1. **If the task matches a story, follow the story.** Check
+   `references/stories.md` for the route, then fetch the how-to it points
+   at and follow that sequence end-to-end — the ordering is usually the
+   point (e.g. identity mappings exist BEFORE extraction runs, so the run
+   can ground against them).
+2. **Reach for raw primitives only when no story fits**, and say so:
+   tell the user you're off the paved path and what that costs (results
+   may not surface in the product UI; provenance links won't exist).
+   Working-but-invisible is a failure mode, not a success.
+3. **Never substitute the platform's source code for its docs.** If you
+   can see a Fluree repo in your working directory, its schemas and
+   handlers describe what the API *accepts* — not what the product
+   *intends*. The docs are the steering surface; the code is not.
+
+The test to apply before calling a task done: *if the user opens the UI
+right now, can they see what was just built — the files, the sources, the
+links?* If not, the task is not done the way the product means it.
+
 ## Playbooks
 
 Short skeletons for the common stories — upload and extract, expose a Space over MCP, connect an Iceberg catalog, build an app — each pointing at the stack doc that actually carries the procedure: `references/stories.md`. They are pointers by design; the stack's copy is the one that matches the stack.

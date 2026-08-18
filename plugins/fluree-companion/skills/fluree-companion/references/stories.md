@@ -2,6 +2,8 @@
 
 Each entry is a **route**, not a procedure: the goal, the stack doc that carries the actual steps, and the entry point to start from. Fetch the doc (see `stack-knowledge.md`) before doing any of it — the stack's copy matches the stack, and this file cannot.
 
+These routes are **paved paths** (SKILL.md Rule 6): their sequences mint the provenance and UI visibility that equivalent-looking raw API/CLI assemblies skip. Deviating is sometimes necessary — but it's a thing to surface to the user, not a shortcut to take silently.
+
 Slugs below are `category/slug` on the stack's own docs: `https://<stack>/api/docs/<slug>` for raw markdown, `https://<stack>/docs/<slug>` signed-in.
 
 ---
